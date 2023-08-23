@@ -38,22 +38,22 @@ jobs:
         include:
           - TARGET: mips-unknown-linux-gnu
             OS: ubuntu-latest
-            FEATURES: ring-cipher
+            FEATURES: normal
           - TARGET: mips-unknown-linux-musl
             OS: ubuntu-latest
-            FEATURES: ring-cipher
+            FEATURES: normal
           - TARGET: mips64-unknown-linux-muslabi64
             OS: ubuntu-latest
-            FEATURES: ring-cipher
+            FEATURES: normal
           - TARGET: mips64el-unknown-linux-muslabi64
             OS: ubuntu-latest
-            FEATURES: ring-cipher
+            FEATURES: normal
           - TARGET: mipsel-unknown-linux-gnu
             OS: ubuntu-latest
-            FEATURES: ring-cipher
+            FEATURES: normal
           - TARGET: mipsel-unknown-linux-musl
             OS: ubuntu-latest
-            FEATURES: ring-cipher
+            FEATURES: normal
     # needs: test
     runs-on: ${{ matrix.OS }}
     env:

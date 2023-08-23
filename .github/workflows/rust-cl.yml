@@ -36,21 +36,24 @@ jobs:
       matrix:
         # a list of all the targets
         include:
+          - TARGET: mips-unknown-linux-gun
+            OS: ubuntu-latest
+            FEATURES: ring-cipher
           - TARGET: mips-unknown-linux-musl
             OS: ubuntu-latest
             FEATURES: ring-cipher
-          - TARGET: mips64-openwrt-linux-musl
-            OS: ubuntu-latest
-            FEATURES: ring-cipherl
           - TARGET: mips64-unknown-linux-muslabi64
             OS: ubuntu-latest
             FEATURES: ring-cipher
           - TARGET: mips64el-unknown-linux-muslabi64
             OS: ubuntu-latest
             FEATURES: ring-cipher
+          - TARGET: mipsel-unknown-linux-gun
+            OS: ubuntu-latest
+            FEATURES: ring-cipher
           - TARGET: mipsel-unknown-linux-musl
             OS: ubuntu-latest
-            FEATURES: ring-cipher         
+            FEATURES: ring-cipher
     # needs: test
     runs-on: ${{ matrix.OS }}
     env:
@@ -80,6 +83,10 @@ jobs:
           fi
           # some additional configuration for cross-compilation on linux
           cat >>~/.cargo/config <<EOF
+          [target.mips-unknown-linux-musl]
+          linker = "mips-unknown-linux-gnu-gcc"
+          [target.mipsel-unknown-linux-musl]
+          linker = "mipsel-unknown-linux-gnu-gcc"
           [target.aarch64-unknown-linux-gnu]
           linker = "aarch64-linux-gnu-gcc"
           [target.aarch64-unknown-linux-musl]

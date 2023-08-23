@@ -36,7 +36,7 @@ jobs:
       matrix:
         # a list of all the targets
         include:
-          - TARGET: mips-unknown-linux-gun
+          - TARGET: mips-unknown-linux-gnu
             OS: ubuntu-latest
             FEATURES: ring-cipher
           - TARGET: mips-unknown-linux-musl
@@ -48,7 +48,7 @@ jobs:
           - TARGET: mips64el-unknown-linux-muslabi64
             OS: ubuntu-latest
             FEATURES: ring-cipher
-          - TARGET: mipsel-unknown-linux-gun
+          - TARGET: mipsel-unknown-linux-gnu
             OS: ubuntu-latest
             FEATURES: ring-cipher
           - TARGET: mipsel-unknown-linux-musl

@@ -38,6 +38,21 @@ jobs:
       matrix:
         # a list of all the targets
         include:
+          - TARGET: mips-unknown-linux-musl
+            OS: ubuntu-latest
+            FEATURES: normal
+          - TARGET: mips64-openwrt-linux-musl
+            OS: ubuntu-latest
+            FEATURES: normal
+          - TARGET: mips64-unknown-linux-muslabi64
+            OS: ubuntu-latest
+            FEATURES: normal
+          - TARGET: mips64el-unknown-linux-muslabi64
+            OS: ubuntu-latest
+            FEATURES: normal
+          - TARGET: mipsel-unknown-linux-musl
+            OS: ubuntu-latest
+            FEATURES: normal
           - TARGET: i686-unknown-linux-musl # test in an alpine container on a mac
             OS: ubuntu-latest
             FEATURES: normal

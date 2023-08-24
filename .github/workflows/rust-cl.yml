@@ -105,8 +105,8 @@ jobs:
           # linker = "arm-linux-gnueabihf-gcc"
           # EOF
       - name: Install rust target
+       # rustup toolchain install stable-$TARGET
         run: |
-        # rustup toolchain install stable-$TARGET
           rustup target add $TARGET
       - name: test
         run: |

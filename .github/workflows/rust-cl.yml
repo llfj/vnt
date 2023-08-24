@@ -82,7 +82,7 @@ jobs:
             sudo apt-get update && sudo apt-get install -qq crossbuild-essential-arm64 crossbuild-essential-mips crossbuild-essential-mipsel crossbuild-essential-armhf musl-tools 
           fi
           echo --------
-          mipsel-linux-gnu-gcc -version
+          mipsel-linux-gnu-gcc --version
           # some additional configuration for cross-compilation on linux
            cat >>~/.cargo/config <<EOF
           [target.mipsel-unknown-linux-musl]

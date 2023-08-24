@@ -105,11 +105,16 @@ jobs:
           # linker = "arm-linux-gnueabihf-gcc"
           # EOF
       - name: Install rust target
-        run: rustup target add $TARGET
+        run: |
+          rustup toolchain install stable-$TARGET
+          rustup target add $TARGET
       - name: test
         run: |
           rustc --print target-list | grep musl
+          echo -----------------
           rustup target list
+          echo -----------------
+          rustup show
       - name: Run build
         run: cargo build --package vnt-cli --release --verbose --target $TARGET --features $FEATURES
       - name: List target

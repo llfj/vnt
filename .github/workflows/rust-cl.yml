@@ -87,7 +87,7 @@ jobs:
            cat >>~/.cargo/config <<EOF
           [target.mipsel-unknown-linux-musl]
           linker = "mipsel-linux-gnu-gcc"
-          rustflags = "-C", "link-arg=-static -nostartfiles"
+          rustflags = ["-C", "link-arg=-static -nostartfiles"]
           # [target.mips-unknown-linux-gnu]
           # linker = "mips-linux-gnu-gcc"
           # [target.mipsel-unknown-linux-musl]

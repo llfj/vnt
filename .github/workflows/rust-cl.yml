@@ -36,21 +36,21 @@ jobs:
       matrix:
         # a list of all the targets
         include:
-          - TARGET: mips-unknown-linux-gnu
-            OS: ubuntu-latest
-            FEATURES: normal
-          - TARGET: mips-unknown-linux-musl
-            OS: ubuntu-latest
-            FEATURES: normal
-          - TARGET: mips64-unknown-linux-muslabi64
-            OS: ubuntu-latest
-            FEATURES: normal
-          - TARGET: mips64el-unknown-linux-muslabi64
-            OS: ubuntu-latest
-            FEATURES: normal
-          - TARGET: mipsel-unknown-linux-gnu
-            OS: ubuntu-latest
-            FEATURES: normal
+    #       - TARGET: mips-unknown-linux-gnu
+    #        OS: ubuntu-latest
+    #        FEATURES: normal
+    #       - TARGET: mips-unknown-linux-musl
+    #         OS: ubuntu-latest
+    #         FEATURES: normal
+    #        - TARGET: mips64-unknown-linux-muslabi64
+    #         OS: ubuntu-latest
+    #         FEATURES: normal
+    #       - TARGET: mips64el-unknown-linux-muslabi64
+    #         OS: ubuntu-latest
+    #         FEATURES: normal
+    #       - TARGET: mipsel-unknown-linux-gnu
+    #         OS: ubuntu-latest
+    #         FEATURES: normal
           - TARGET: mipsel-unknown-linux-musl
             OS: ubuntu-latest
             FEATURES: normal
@@ -78,36 +78,38 @@ jobs:
         run: |
           # dependencies are only needed on ubuntu as that's the only place where
           # we make cross-compilation
-          if [[ $OS =~ ^ubuntu.*$ ]]; then
-            sudo apt-get update && sudo apt-get install -qq crossbuild-essential-arm64 crossbuild-essential-mips crossbuild-essential-mipsel crossbuild-essential-armhf musl-tools 
-          fi
+          # if [[ $OS =~ ^ubuntu.*$ ]]; then
+          # sudo apt-get update && sudo apt-get install -qq crossbuild-essential-arm64 crossbuild-essential-mips crossbuild-essential-mipsel crossbuild-essential-armhf musl-tools 
+          # fi
           # some additional configuration for cross-compilation on linux
-          cat >>~/.cargo/config <<EOF
-          [target.mips-unknown-linux-musl]
-          linker = "mips-linux-gnu-gcc"
-          [target.mips-unknown-linux-gnu]
-          linker = "mips-linux-gnu-gcc"
-          [target.mipsel-unknown-linux-musl]
-          linker = "mipsel-linux-gnu-gcc"
-          [target.mipsel-unknown-linux-gnu]
-          linker = "mipsel-linux-gnu-gcc"
-          [target.aarch64-unknown-linux-gnu]
-          linker = "aarch64-linux-gnu-gcc"
-          [target.aarch64-unknown-linux-musl]
-          linker = "aarch64-linux-gnu-gcc"
-          [target.armv7-unknown-linux-gnueabihf]
-          linker = "arm-linux-gnueabihf-gcc"
-          [target.armv7-unknown-linux-musleabihf]
-          linker = "arm-linux-gnueabihf-gcc"
-          [target.arm-unknown-linux-gnueabihf]
-          linker = "arm-linux-gnueabihf-gcc"
-          [target.arm-unknown-linux-musleabihf]
-          linker = "arm-linux-gnueabihf-gcc"
-          EOF
+          # cat >>~/.cargo/config <<EOF
+          # [target.mips-unknown-linux-musl]
+          # linker = "mips-linux-gnu-gcc"
+          # [target.mips-unknown-linux-gnu]
+          # linker = "mips-linux-gnu-gcc"
+          # [target.mipsel-unknown-linux-musl]
+          # linker = "mipsel-linux-gnu-gcc"
+          # [target.mipsel-unknown-linux-gnu]
+          # linker = "mipsel-linux-gnu-gcc"
+          # [target.aarch64-unknown-linux-gnu]
+          # linker = "aarch64-linux-gnu-gcc"
+          # [target.aarch64-unknown-linux-musl]
+          # linker = "aarch64-linux-gnu-gcc"
+          # [target.armv7-unknown-linux-gnueabihf]
+          # linker = "arm-linux-gnueabihf-gcc"
+          # [target.armv7-unknown-linux-musleabihf]
+          # linker = "arm-linux-gnueabihf-gcc"
+          # [target.arm-unknown-linux-gnueabihf]
+          # linker = "arm-linux-gnueabihf-gcc"
+          # [target.arm-unknown-linux-musleabihf]
+          # linker = "arm-linux-gnueabihf-gcc"
+          # EOF
       - name: Install rust target
         run: rustup target add $TARGET
       - name: test
-        run: rustc --print target-list | grep musl
+        run: |
+          rustc --print target-list | grep musl
+          rustup target list
       - name: Run build
         run: cargo build --package vnt-cli --release --verbose --target $TARGET --features $FEATURES
       - name: List target

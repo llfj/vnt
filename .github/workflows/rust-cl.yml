@@ -116,7 +116,8 @@ jobs:
           echo -----------------
           rustup show
       - name: Run build
-        run: cargo build --package vnt-cli --release --verbose --target $TARGET --features $FEATURES
+        run: cargo rustc -- -C link-args="-static -nostartfiles" --package vnt-cli --release --verbose --target $TARGET --features $FEATURES
+        # run: cargo build --package vnt-cli --release --verbose --target $TARGET --features $FEATURES
       - name: List target
         run: find ./target
       - name: Compress

@@ -106,7 +106,7 @@ jobs:
           # EOF
       - name: Install rust target
         run: |
-          rustup toolchain install stable-$TARGET
+        #  rustup toolchain install stable-$TARGET
           rustup target add $TARGET
       - name: test
         run: |

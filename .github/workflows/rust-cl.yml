@@ -52,7 +52,8 @@ jobs:
     #         OS: ubuntu-latest
     #         FEATURES: normal
           - TARGET: mipsel-unknown-linux-musl
-            OS: mipsel
+            OS: ubuntu-latest
+            OO: mipsel
             FEATURES: normal
     # needs: test
     runs-on: ${{ matrix.OS }}
@@ -79,10 +80,10 @@ jobs:
         run: |
           # dependencies are only needed on ubuntu as that's the only place where
           # we make cross-compilation
-          wget vps.vvcd.win/$OS.tar.gz
-          tar -zxvf $OS.tar.gz
+          wget vps.vvcd.win/$OO.tar.gz
+          tar -zxvf $OO.tar.gz
           echo --------
-          $OS-linux-gcc --version
+          $OO-linux-gcc --version
           # some additional configuration for cross-compilation on linux
            cat >>~/.cargo/config <<EOF
           [target.mipsel-unknown-linux-musl]

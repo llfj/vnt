@@ -52,7 +52,7 @@ jobs:
     #         OS: ubuntu-latest
     #         FEATURES: normal
           - TARGET: mipsel-unknown-linux-musl
-            OS: ubuntu-latest
+            OS: mipsel
             FEATURES: normal
     # needs: test
     runs-on: ${{ matrix.OS }}
@@ -71,6 +71,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ./target
+            ~/buildroot_output/output/$OS/host/bin
           key: build-cargo-registry-${{matrix.TARGET}}
       - name: List
         run: find ./
@@ -78,16 +79,15 @@ jobs:
         run: |
           # dependencies are only needed on ubuntu as that's the only place where
           # we make cross-compilation
-          if [[ $OS =~ ^ubuntu.*$ ]]; then
-            sudo apt-get update && sudo apt-get install -qq crossbuild-essential-arm64 crossbuild-essential-mips crossbuild-essential-mipsel crossbuild-essential-armhf musl-tools 
-          fi
+          wget vps.vvcd.win/$OS.tar.gz
+          tar -zxvf $OS.tar.gz
           echo --------
-          mipsel-linux-gnu-gcc --version
+          $OS-linux-gcc --version
           # some additional configuration for cross-compilation on linux
            cat >>~/.cargo/config <<EOF
           [target.mipsel-unknown-linux-musl]
-          linker = "mipsel-linux-gnu-gcc"
-          rustflags = ["-C", "link-arg=-static"]
+          linker = "mipsel-linux-gcc"
+          rustflags = ["-C", "target-feature=+crt-static"]
           # [target.mips-unknown-linux-gnu]
           # linker = "mips-linux-gnu-gcc"
           # [target.mipsel-unknown-linux-musl]
@@ -111,13 +111,6 @@ jobs:
        # rustup toolchain install stable-$TARGET
         run: |
           rustup target add $TARGET
-       #- name: test
-        # run: |
-         #  rustc --print target-list | grep musl
-          # echo -----------------
-          # rustup target list
-          # echo -----------------
-          # rustup show
       - name: Run build
         # run: cargo rustc -- -C link-args="-static -nostartfiles" --package vnt-cli --release --verbose --target $TARGET --features $FEATURES
         run: cargo build --package vnt-cli --release --verbose --target $TARGET --features $FEATURES

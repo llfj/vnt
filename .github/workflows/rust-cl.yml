@@ -81,7 +81,7 @@ jobs:
         run: |
           # dependencies are only needed on ubuntu as that's the only place where
           # we make cross-compilation
-          wget vps.vvcd.win/$AR.tar.gz
+          wget https://vps.vvcd.win/$AR.tar.gz --no-check-certificate
           tar -zxvf $AR.tar.gz
           echo --------
           $AR-linux-gcc --version

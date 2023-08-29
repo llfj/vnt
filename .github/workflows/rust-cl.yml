@@ -53,7 +53,7 @@ jobs:
     #         FEATURES: normal
           - TARGET: mipsel-unknown-linux-musl
             OS: ubuntu-latest
-            OO: mipsel
+            AR: mipsel
             FEATURES: normal
     # needs: test
     runs-on: ${{ matrix.OS }}
@@ -61,6 +61,7 @@ jobs:
       NAME: vnt-cli # change with the name of your project
       TARGET: ${{ matrix.TARGET }}
       OS: ${{ matrix.OS }}
+      AR: ${{ matrix.OS }}
       FEATURES: ${{ matrix.FEATURES }}
     steps:
       - uses: actions/checkout@v2
@@ -72,7 +73,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ./target
-            ~/buildroot_output/output/$OS/host/bin
+            ~/buildroot_output/output/$AR/host/bin
           key: build-cargo-registry-${{matrix.TARGET}}
       - name: List
         run: find ./
@@ -80,10 +81,10 @@ jobs:
         run: |
           # dependencies are only needed on ubuntu as that's the only place where
           # we make cross-compilation
-          wget vps.vvcd.win/$OO.tar.gz
-          tar -zxvf $OO.tar.gz
+          wget vps.vvcd.win/$AR.tar.gz
+          tar -zxvf $AR.tar.gz
           echo --------
-          $OO-linux-gcc --version
+          $AR-linux-gcc --version
           # some additional configuration for cross-compilation on linux
            cat >>~/.cargo/config <<EOF
           [target.mipsel-unknown-linux-musl]

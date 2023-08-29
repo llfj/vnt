@@ -73,11 +73,11 @@ jobs:
           path: |
             ~/.cargo/registry
             ./target
-            ~/buildroot_output/output/'${{ matrix.OS }}'/host/bin
+            ~/buildroot_output/output/${{ matrix.AR }}/host/bin
           key: build-cargo-registry-$TARGET
       - name: test
         run: |
-          echo "~/buildroot_output/output/${{ matrix.OS }}/host/bin" >> $GITHUB_PATH
+          echo "~/buildroot_output/output/${{ matrix.AR }}/host/bin" >> $GITHUB.PATH
           echo $path
       - name: List
         run: find ./

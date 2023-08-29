@@ -75,10 +75,10 @@ jobs:
             ./target
             ~/root/buildroot_output/output/${{ matrix.AR }}/host/bin
           key: build-cargo-registry-$TARGET
-   #    - name: test
-    #     run: |
-       #    echo "~/root/buildroot_output/output/${{ matrix.AR }}/host/bin" >> $GITHUB_PATH
-       #    echo $GITHUB_PATH
+      - name: test
+        run: |
+           echo "~/root/buildroot_output/output/${{ matrix.AR }}/host/bin" >> $GITHUB_PATH
+           echo $GITHUB_PATH
       - name: List
         run: find ./
       - name: Install and configure dependencies
@@ -90,10 +90,13 @@ jobs:
           ls
           echo --------
           ~/root/buildroot_output/output/${{ matrix.AR }}/host/bin/${{ matrix.AR }}-linux-gcc --version
+          ${{ matrix.AR }}-linux-gcc --version
+           echo --------
           # some additional configuration for cross-compilation on linux
            cat >>~/.cargo/config <<EOF
           [target.${{ matrix.AR }}-unknown-linux-musl]
-          linker = "~/root/buildroot_output/output/${{ matrix.AR }}/host/bin/${{ matrix.AR }}-linux-gcc"
+          # linker = "root/buildroot_output/output/${{ matrix.AR }}/host/bin/${{ matrix.AR }}-linux-gcc"
+          linker = "${{ matrix.AR }}-linux-gcc"
           rustflags = ["-C", "target-feature=+crt-static"]
           # [target.mips-unknown-linux-gnu]
           # linker = "mips-linux-gnu-gcc"

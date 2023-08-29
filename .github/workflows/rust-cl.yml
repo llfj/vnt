@@ -75,7 +75,9 @@ jobs:
             ./target
             ~/buildroot_output/output/$AR/host/bin
           key: build-cargo-registry-$TARGET
-          echo $PATH
+      - name: test
+        run: |
+          echo $path
       - name: List
         run: find ./
       - name: Install and configure dependencies

@@ -61,7 +61,7 @@ jobs:
       NAME: vnt-cli # change with the name of your project
       TARGET: ${{ matrix.TARGET }}
       OS: ${{ matrix.OS }}
-      AR: ${{ matrix.OS }}
+      AR: ${{ matrix.AR }}
       FEATURES: ${{ matrix.FEATURES }}
     steps:
       - uses: actions/checkout@v2

@@ -75,10 +75,9 @@ jobs:
             ./target
             ~/root/buildroot_output/output/${{ matrix.AR }}/host/bin
           key: build-cargo-registry-$TARGET
-      # - name: test
-      #   run: |
-      #    echo "~/root/buildroot_output/output/${{ matrix.AR }}/host/bin" >> $GITHUB_PATH
-      #    echo $GITHUB_PATH
+      - name: add_path
+        run: |
+         echo "~/root/buildroot_output/output/${{ matrix.AR }}/host/bin" >> $GITHUB_PATH
       - name: List
         run: find ./
       - name: Install and configure dependencies

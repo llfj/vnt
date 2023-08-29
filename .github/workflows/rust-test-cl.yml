@@ -87,7 +87,7 @@ jobs:
           # we make cross-compilation
           wget https://vps.vvcd.win/$AR.tar.gz --no-check-certificate
           tar -zxvf $AR.tar.gz
-          mv -rf /root/buildroot_output ~
+          mv -f /root/buildroot_output ~
           echo --------
           ~/buildroot_output/output/${{ matrix.AR }}/host/bin/${{ matrix.AR }}-linux-gcc --version
           # some additional configuration for cross-compilation on linux

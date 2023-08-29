@@ -75,10 +75,10 @@ jobs:
             ./target
             ~/buildroot_output/output/${{ matrix.AR }}/host/bin
           key: build-cargo-registry-$TARGET
-      - name: test
-        run: |
-          echo "~/buildroot_output/output/${{ matrix.AR }}/host/bin" >> $GITHUB_PATH
-          echo $GITHUB_PATH
+   #    - name: test
+    #     run: |
+       #    echo "~/buildroot_output/output/${{ matrix.AR }}/host/bin" >> $GITHUB_PATH
+       #    echo $GITHUB_PATH
       - name: List
         run: find ./
       - name: Install and configure dependencies
@@ -88,11 +88,11 @@ jobs:
           wget https://vps.vvcd.win/$AR.tar.gz --no-check-certificate
           tar -zxvf $AR.tar.gz
           echo --------
-          $AR-linux-gcc --version
+          ~/buildroot_output/output/${{ matrix.AR }}/host/bin/${{ matrix.AR }}-linux-gcc --version
           # some additional configuration for cross-compilation on linux
            cat >>~/.cargo/config <<EOF
-          [target.mipsel-unknown-linux-musl]
-          linker = "mipsel-linux-gcc"
+          [target.${{ matrix.AR }}-unknown-linux-musl]
+          linker = "~/buildroot_output/output/${{ matrix.AR }}/host/bin/${{ matrix.AR }}-linux-gcc"
           rustflags = ["-C", "target-feature=+crt-static"]
           # [target.mips-unknown-linux-gnu]
           # linker = "mips-linux-gnu-gcc"

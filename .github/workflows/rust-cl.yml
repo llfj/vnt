@@ -74,7 +74,8 @@ jobs:
             ~/.cargo/registry
             ./target
             ~/buildroot_output/output/$AR/host/bin
-          key: build-cargo-registry-${{matrix.TARGET}}
+          key: build-cargo-registry-$TARGET
+          echo $PATH
       - name: List
         run: find ./
       - name: Install and configure dependencies
